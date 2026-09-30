@@ -36,7 +36,7 @@
             <span class="candle" id="flame">🔥</span>
             🎂
         </div>
-        <div class="instruction">✨ Chạm vào ngọn nến để thổi nến nhe ebe 🕯️</div>
+        <div class="instruction">✨ Chạm vào ngọn nến để thổi nến nhe ebe 🕯️️</div>
     </div>
 
     <!-- Màn hình 2: Khung thiệp -->
@@ -55,6 +55,11 @@ Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
         </div>
     </div>
 
+    <!-- File nhạc MP3 Piano chúc mừng sinh nhật nhẹ nhàng, có thuộc tính loop để phát liên tục -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-442.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         function blowOut() {
             // Tắt nến & Hiện thiệp
@@ -62,11 +67,20 @@ Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
             document.getElementById('stage1').style.display = 'none';
             document.getElementById('myCard').classList.add('show');
 
-            // Tạo hiệu ứng tim rơi
+            // Hiệu ứng tim rơi
             setInterval(createHeart, 300);
 
-            // Phát giai điệu Happy Birthday bằng Web Audio API (Lặp lại liên tục)
-            playHappyBirthday();
+            // Phát nhạc MP3 hay ngay khi người dùng tương tác (bấm ngọn nến)
+            const audio = document.getElementById('bgMusic');
+            audio.volume = 0.8;
+            
+            // Xử lý phát nhạc phát liên tục
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Trình duyệt chặn nhạc tự động: ", error);
+                });
+            }
         }
 
         function createHeart() {
@@ -78,51 +92,6 @@ Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
             heart.style.fontSize = Math.random() * 15 + 15 + 'px';
             document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 5000);
-        }
-
-        // Hàm phát nhạc giai điệu Happy Birthday lặp lại liên tục
-        function playHappyBirthday() {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-            const audioCtx = new AudioContext();
-
-            // Nốt nhạc & thời lượng cho bài Happy Birthday
-            const notes = [
-                { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 293.66, d: 0.5 }, { f: 261.63, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 329.63, d: 1.0 },
-                { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 293.66, d: 0.5 }, { f: 261.63, d: 0.5 }, { f: 392.00, d: 0.5 }, { f: 349.23, d: 1.0 },
-                { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 523.25, d: 0.5 }, { f: 440.00, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 329.63, d: 0.5 }, { f: 293.66, d: 1.0 },
-                { f: 466.16, d: 0.35 }, { f: 466.16, d: 0.15 }, { f: 440.00, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 392.00, d: 0.5 }, { f: 349.23, d: 1.2 }
-            ];
-
-            function playSequence() {
-                let currTime = audioCtx.currentTime;
-                let totalDuration = 0;
-
-                notes.forEach(note => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-
-                    osc.type = 'triangle'; // Âm thanh nhẹ nhàng
-                    osc.frequency.value = note.f;
-
-                    gain.gain.setValueAtTime(0.3, currTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, currTime + note.d - 0.05);
-
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-
-                    osc.start(currTime);
-                    osc.stop(currTime + note.d);
-
-                    currTime += note.d + 0.05;
-                    totalDuration += note.d + 0.05;
-                });
-
-                // Hết bài sẽ tự động lặp lại phát tiếp
-                setTimeout(playSequence, totalDuration * 1000 + 1000);
-            }
-
-            playSequence();
         }
     </script>
 </body>
