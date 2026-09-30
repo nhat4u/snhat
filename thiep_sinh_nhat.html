@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Ebe Iu 🎂</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Màn hình nút bấm ban đầu */
+        .start-container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .btn-open {
+            background-color: #ff6b81;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 107, 129, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 1.5s infinite;
+        }
+
+        .btn-open:hover {
+            transform: scale(1.08);
+            background-color: #ff4757;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Khung Thiệp */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            max-width: 500px;
+            width: 100%;
+            padding: 30px 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            text-align: center;
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            position: relative;
+            z-index: 5;
+        }
+
+        .card.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-header h1 {
+            color: #ff4757;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .card-body {
+            color: #444;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            text-align: justify;
+            margin: 20px 0;
+            white-space: pre-line;
+            background: #fff5f6;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px dashed #ffb8b8;
+        }
+
+        .card-footer {
+            font-size: 1.3rem;
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        /* Hiệu ứng trái tim rơi */
+        .heart {
+            position: fixed;
+            color: #ff4757;
+            font-size: 20px;
+            top: -20px;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Màn hình mở đầu -->
+    <div class="start-container" id="startScreen">
+        <button class="btn-open" onclick="openCard()">🎁 Nhấn vào đây nè ebe iu 💖</button>
+    </div>
+
+    <!-- Nội dung thiệp -->
+    <div class="card" id="myCard">
+        <div class="card-header">
+            <h1>🎂 Happy Birthday Ebe Iu! 🥳</h1>
+        </div>
+        <div class="card-body">
+Vậy là đã 3 năm anh được cùng ebe đón sinh nhật rùi ne 🥹 3 năm không quá dài nhưng cũng đủ để anh hiểu rằng có em ở bên cạnh chính là điều bình yên và hạnh phúc nhất rùi 🥹 Cảm ơn em đã xuất hiện, đã kiên nhẫn, yêu thương, cùng anh trải qua biết bao nhiêu kỷ niệm, trải nghiệm đẹp và cho anh biết thêm được rất nhiều điều mới mẻ🥰
+
+Nhân ngày sinh nhật ebe, anh chỉ mong em bé của anh luôn luôn mạnh khỏe, lúc nào cũm vui vẻ, hạnh phúc bên chồng thúi của ebe và gia đình ne. Mong vợ iu tủi mới bớt ovtk và hỉu anh hưn nhe 🙆🏻‍♀️Anh cũng sẽ cố gắng hưn để không để ebe iu phải cáu giận a nữa ạaa🥹
+Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
+        </div>
+        <div class="card-footer">
+            Ai lớp zuu 🥰🎂💕
+        </div>
+    </div>
+
+    <script>
+        function openCard() {
+            document.getElementById('startScreen').style.display = 'none';
+            const card = document.getElementById('myCard');
+            card.classList.add('active');
+
+            // Tạo hiệu ứng tim rơi
+            setInterval(createHeart, 300);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = ['💖', '💕', '🎂', '✨', '🌸'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
