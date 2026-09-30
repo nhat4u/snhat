@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thổi Nến Cùm Bông iu 🎂</title>
+    <title>Thổi nến cùng ebe iu 🎂</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; text-align: center; }
@@ -36,7 +36,7 @@
             <span class="candle" id="flame">🔥</span>
             🎂
         </div>
-        <div class="instruction">✨ Chạm vào ngọn nến để thổi nến nha ebe iu 🕯️</div>
+        <div class="instruction">✨ Chạm vào ngọn nến để thổi nến nhe ebe 🕯️</div>
     </div>
 
     <!-- Màn hình 2: Khung thiệp -->
@@ -55,27 +55,18 @@ Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
         </div>
     </div>
 
-    <!-- Nhạc nền Chúc Mừng Sinh Nhật chuẩn qua Online Link -->
-    <audio id="hbdSong" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c823055e.mp3?filename=happy-birthday-155461.mp3" preload="auto"></audio>
-
     <script>
         function blowOut() {
-            // Tắt nến
+            // Tắt nến & Hiện thiệp
             document.getElementById('flame').classList.add('blown-out');
-            
-            // Ẩn màn hình thổi nến
             document.getElementById('stage1').style.display = 'none';
-
-            // Hiện thiệp
-            const card = document.getElementById('myCard');
-            card.classList.add('show');
-
-            // Phát nhạc (Phát ngay khi người dùng chạm/click vào màn hình)
-            const song = document.getElementById('hbdSong');
-            song.play().catch(e => console.log("Không thể phát nhạc: ", e));
+            document.getElementById('myCard').classList.add('show');
 
             // Tạo hiệu ứng tim rơi
             setInterval(createHeart, 300);
+
+            // Phát giai điệu Happy Birthday bằng Web Audio API (Đảm bảo 100% nghe được)
+            playHappyBirthday();
         }
 
         function createHeart() {
@@ -87,6 +78,42 @@ Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
             heart.style.fontSize = Math.random() * 15 + 15 + 'px';
             document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        // Hàm phát nhạc giai điệu Happy Birthday trực tiếp bằng trình duyệt
+        function playHappyBirthday() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const audioCtx = new AudioContext();
+
+            // Nốt nhạc & thời lượng cho bài Happy Birthday
+            const notes = [
+                { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 293.66, d: 0.5 }, { f: 261.63, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 329.63, d: 1.0 },
+                { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 293.66, d: 0.5 }, { f: 261.63, d: 0.5 }, { f: 392.00, d: 0.5 }, { f: 349.23, d: 1.0 },
+                { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.15 }, { f: 523.25, d: 0.5 }, { f: 440.00, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 329.63, d: 0.5 }, { f: 293.66, d: 1.0 },
+                { f: 466.16, d: 0.35 }, { f: 466.16, d: 0.15 }, { f: 440.00, d: 0.5 }, { f: 349.23, d: 0.5 }, { f: 392.00, d: 0.5 }, { f: 349.23, d: 1.2 }
+            ];
+
+            let currTime = audioCtx.currentTime;
+
+            notes.forEach(note => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'triangle'; // Âm thanh nhẹ nhàng như hột đàn
+                osc.frequency.value = note.f;
+
+                gain.gain.setValueAtTime(0.3, currTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, currTime + note.d - 0.05);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(currTime);
+                osc.stop(currTime + note.d);
+
+                currTime += note.d + 0.05;
+            });
         }
     </script>
 </body>
