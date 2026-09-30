@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thổi Nến Cho ebe iuu 🎂</title>
+    <title>Thổi Nến Cùm Bông iu 🎂</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; text-align: center; }
@@ -13,9 +13,9 @@
         .cake { font-size: 80px; position: relative; margin-bottom: 20px; }
         .candle { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-size: 30px; display: block; animation: flicker 0.5s infinite; }
         .candle.blown-out { display: none; }
-        .instruction { font-size: 1.2rem; color: #ff6b81; font-weight: bold; background: white; padding: 10px 20px; border-radius: 20px; }
+        .instruction { font-size: 1.2rem; color: #ff6b81; font-weight: bold; background: white; padding: 12px 24px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        /* Khung Thiệp (giống bản cũ nhưng ẩn đi lúc đầu) */
+        /* Khung Thiệp */
         .card { background: rgba(255, 255, 255, 0.95); max-width: 500px; width: 100%; padding: 30px 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); display: none; text-align: center; position: relative; z-index: 5; opacity: 0; transform: scale(0.8); transition: all 0.5s ease; }
         .card.show { display: block; opacity: 1; transform: scale(1); }
 
@@ -36,10 +36,10 @@
             <span class="candle" id="flame">🔥</span>
             🎂
         </div>
-        <div class="instruction">Ebe ấn vào ngọn nến để thổi nheee 🕯️</div>
+        <div class="instruction">✨ Chạm vào ngọn nến để thổi nến nha ebe iu 🕯️</div>
     </div>
 
-    <!-- Màn hình 2: Khung thiệp (Lời chúc cũ của bạn) -->
+    <!-- Màn hình 2: Khung thiệp -->
     <div class="card" id="myCard">
         <div class="card-header">
             <h1>🎂 Happy Birthday bà chã hơm 🥳</h1>
@@ -51,12 +51,12 @@ Nhân ngày sinh nhật ebe, anh chỉ mong em bé của anh luôn luôn mạnh 
 Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
         </div>
         <div class="card-footer">
-            Bông iu dấu 🥰🎂💕
+            Ai lớp zuu 🥰🎂💕
         </div>
     </div>
 
-    <!-- Nhạc nền chúc mừng sinh nhật (được kích hoạt khi thổi nến) -->
-    <audio id="hbdSong" src="https://nhat4u.github.io/snhat/hbd.mp3" preload="auto"></audio>
+    <!-- Nhạc nền Chúc Mừng Sinh Nhật chuẩn qua Online Link -->
+    <audio id="hbdSong" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c823055e.mp3?filename=happy-birthday-155461.mp3" preload="auto"></audio>
 
     <script>
         function blowOut() {
@@ -66,13 +66,13 @@ Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
             // Ẩn màn hình thổi nến
             document.getElementById('stage1').style.display = 'none';
 
-            // Hiện thiệp với hiệu ứng
+            // Hiện thiệp
             const card = document.getElementById('myCard');
             card.classList.add('show');
 
-            // Phát nhạc
+            // Phát nhạc (Phát ngay khi người dùng chạm/click vào màn hình)
             const song = document.getElementById('hbdSong');
-            song.play();
+            song.play().catch(e => console.log("Không thể phát nhạc: ", e));
 
             // Tạo hiệu ứng tim rơi
             setInterval(createHeart, 300);
