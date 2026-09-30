@@ -36,13 +36,13 @@
             <span class="candle" id="flame">🔥</span>
             🎂
         </div>
-        <div class="instruction">✨ Chạm vào ngọn nến để thổi nến nhe ebe 🕯️️</div>
+        <div class="instruction">✨ Chạm vào ngọn nến để thổi nến nhe ebe 🕯</div>
     </div>
 
     <!-- Màn hình 2: Khung thiệp -->
     <div class="card" id="myCard">
         <div class="card-header">
-            <h1>🎂 Happy Birthday 🎂<br> ebe Bông iu 💕</h1>
+            <h1>🎂 Happy Birthday 🎂<br> ebe Bông iuu 💕</h1>
         </div>
         <div class="card-body">
 Vậy là đã 3 năm anh được cùng ebe đón sinh nhật rùi ne 🥹 3 năm không quá dài nhưng cũng đủ để anh hiểu rằng có em ở bên cạnh chính là điều bình yên và hạnh phúc nhất rùi 🥹 Cảm ơn em đã xuất hiện, đã kiên nhẫn, yêu thương, cùng anh trải qua biết bao nhiêu kỷ niệm, trải nghiệm đẹp và cho anh biết thêm được rất nhiều điều mới mẻ🥰
@@ -55,9 +55,9 @@ Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
         </div>
     </div>
 
-    <!-- File nhạc MP3 Piano chúc mừng sinh nhật nhẹ nhàng, có thuộc tính loop để phát liên tục -->
+    <!-- Gọi file nhạc MP3 nằm cùng thư mục trên GitHub -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-442.mp3" type="audio/mpeg">
+        <source src="nhac.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -70,15 +70,14 @@ Cảm ơn em vì đã là em bé ngoan, xinggai của anh.
             // Hiệu ứng tim rơi
             setInterval(createHeart, 300);
 
-            // Phát nhạc MP3 hay ngay khi người dùng tương tác (bấm ngọn nến)
+            // Phát nhạc MP3 ngay khi bấm vào nến
             const audio = document.getElementById('bgMusic');
-            audio.volume = 0.8;
+            audio.volume = 1.0;
             
-            // Xử lý phát nhạc phát liên tục
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    console.log("Trình duyệt chặn nhạc tự động: ", error);
+                    console.log("Lỗi phát nhạc: ", error);
                 });
             }
         }
